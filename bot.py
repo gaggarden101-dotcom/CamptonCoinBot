@@ -20,6 +20,7 @@ if TOKEN is None:
 PREFIX = '!' # Command prefix, though mostly using slash commands now
 
 # Cryptocurrency Name
+CRYPTO_NAMES = ["Campton Coin"] # <--- DEFINITION IS HERE (LINE ~25)
 CAMPTOM_COIN_NAME = "Campton Coin" 
 
 # File for persistent data storage
@@ -85,9 +86,10 @@ bot.owner_id = 357681843790675978
 market_data = load_data()
 
 # Initialize Campton Coin price if not already set or if the coin list changed
-if CAMPTOM_COIN_NAME not in market_data["coins"] or len(market_data["coins"]) != len(CRYPTO_NAMES):
+# This is the block where the error is occurring (LINE ~90)
+if CAMPTOM_COIN_NAME not in market_data["coins"] or len(market_data["coins"]) != len(CRYPTO_NAMES): 
     market_data["coins"] = {}
-    for name in CRYPTO_NAMES:
+    for name in CRYPTO_NAMES: # <--- This is line 90 in the full script
         market_data["coins"][name] = {"price": INITIAL_PRICE}
     save_data(market_data)
 # Ensure loaded price is within bounds
@@ -152,6 +154,9 @@ def buy_coin_logic(user_id, coin_name, quantity_of_coins_to_buy):
 
     if user["balance"] < cost:
         return f"Insufficient funds. You need {cost:.2f} dollars but only have {user['balance']:.2f} dollars."
+
+    if user.get("on_buy_cooldown", False): # Check cooldown here too for clarity
+        return "You cannot buy Campton Coin until after the next market price update (approximately every 3 days)."
 
     user["balance"] -= cost
     user["portfolio"][coin_name] = user["portfolio"].get(coin_name, 0.0) + quantity_of_coins_to_buy
@@ -1147,7 +1152,7 @@ async def manual_convert_error(interaction: discord.Interaction, error: app_comm
         else:
             await interaction.response.send_message(f"An unexpected error occurred: {error}", ephemeral=True)
 
-# --- NEW: Ping Command ---
+# --- Ping Command ---
 @bot.tree.command(name='ping', description='Checks the bot\'s latency to Discord.')
 async def ping(interaction: discord.Interaction):
     """Checks the bot's latency to Discord."""
@@ -1156,4 +1161,3 @@ async def ping(interaction: discord.Interaction):
 
 # This bot.py file is designed to be run via main.py, which starts the bot.
 bot.run(TOKEN)
-

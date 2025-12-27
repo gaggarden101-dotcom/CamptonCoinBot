@@ -1,4 +1,3 @@
-Here's the updated bot.py with /save command and automatic role checking on /buy and /sell:
 import discord
 from discord.ext import commands, tasks
 from discord import app_commands, ui

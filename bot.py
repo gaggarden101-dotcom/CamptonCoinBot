@@ -1146,6 +1146,26 @@ async def save_error(interaction: discord.Interaction, error: app_commands.AppCo
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message(f"Pong! Latency: {round(bot.latency * 1000)}ms", ephemeral=True)
 
+@bot.tree.command(name='announce', description='(Owner) Make the bot announce something to the channel.')
+@app_commands.describe(message='The message for the bot to announce.')
+@app_commands.check(is_bot_owner_slash)
+async def announce(interaction: discord.Interaction, message: str):
+    await interaction.response.defer(ephemeral=True)
+    try:
+        await interaction.channel.send(message)
+        await interaction.followup.send("✅ Announcement sent.", ephemeral=True)
+        print(f"Announcement sent by {interaction.user.display_name}: {message}")
+    except Exception as e:
+        await interaction.followup.send(f"❌ Error sending announcement: {e}", ephemeral=True)
+        print(f"Error sending announcement: {e}")
+
+@announce.error
+async def announce_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+    if isinstance(error, app_commands.CheckFailure):
+        await interaction.response.send_message("Only the bot owner can use this.", ephemeral=True)
+    else:
+        await interaction.response.send_message(f"Error: {error}", ephemeral=True)
+
 # Run the bot
 bot.run(TOKEN)
 

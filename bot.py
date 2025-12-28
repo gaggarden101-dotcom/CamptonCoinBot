@@ -1165,6 +1165,37 @@ async def announce_error(interaction: discord.Interaction, error: app_commands.A
     else:
         await interaction.response.send_message(f"Error: {error}", ephemeral=True)
 
+@bot.tree.command(name='addcoins', description='(Owner) Add Campton Coin to a member\'s portfolio.')
+@app_commands.describe(member='The user to add coins to.', quantity='The number of coins to add.')
+@app_commands.check(is_bot_owner_slash)
+async def addcoins(interaction: discord.Interaction, member: discord.Member, quantity: float):
+    await interaction.response.defer(ephemeral=True)
+
+    if interaction.user.id != bot.owner_id:
+        await interaction.followup.send("You must be the bot owner to use this command.", ephemeral=True)
+        return
+
+    if quantity <= 0:
+        await interaction.followup.send("Quantity must be greater than 0.", ephemeral=True)
+        return
+
+    if has_more_than_three_decimals(quantity):
+        await interaction.followup.send("You can only add coins with up to 3 decimal places (e.g., 0.123).", ephemeral=True)
+        return
+
+    user_data = get_user_data(member.id)
+    user_data["portfolio"][CAMPTOM_COIN_NAME] = user_data["portfolio"].get(CAMPTOM_COIN_NAME, 0.0) + quantity
+    save_data(market_data)
+
+    await interaction.followup.send(f"Successfully added {quantity:.3f} {CAMPTOM_COIN_NAME} to {member.display_name}'s portfolio. They now have {user_data['portfolio'][CAMPTOM_COIN_NAME]:.3f} coins.", ephemeral=True)
+
+@addcoins.error
+async def addcoins_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+    if isinstance(error, app_commands.CheckFailure):
+        await interaction.response.send_message("You must be the bot owner to use this command.", ephemeral=True)
+    else:
+        await interaction.response.send_message(f"Error: {error}", ephemeral=True)
+
 # Run the bot
 bot.run(TOKEN)
 

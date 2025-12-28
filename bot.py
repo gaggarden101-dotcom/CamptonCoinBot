@@ -92,7 +92,7 @@ async def is_bot_owner_slash(interaction: discord.Interaction) -> bool:
     return interaction.user.id == bot.owner_id
 
 def has_more_than_three_decimals(number: float) -> bool:
-    s = str(f"{number:.4f}") 
+    s = str(number)
     if '.' in s:
         decimal_part = s.split('.')[1]
         return len(decimal_part) > 3
@@ -1196,9 +1196,35 @@ async def addcoins_error(interaction: discord.Interaction, error: app_commands.A
     else:
         await interaction.response.send_message(f"Error: {error}", ephemeral=True)
 
+@bot.tree.command(name='setprice', description='(Owner) Manually set the price of Campton Coin.')
+@app_commands.describe(amount='The new price for Campton Coin (e.g., 150.75).')
+@app_commands.check(is_bot_owner_slash)
+async def set_price_cmd(interaction: discord.Interaction, amount: float):
+    await interaction.response.defer(ephemeral=True)
+
+    if amount <= 0:
+        await interaction.followup.send("The price must be a positive number.", ephemeral=True)
+        return
+
+    if amount < MIN_PRICE or amount > MAX_PRICE:
+        await interaction.followup.send(f"The price must be between {MIN_PRICE:.2f} and {MAX_PRICE:.2f} dollars.", ephemeral=True)
+        return
+    
+    # Round to 2 decimal places as per market logic
+    new_price = round(amount, 2)
+
+    market_data["coins"][CAMPTOM_COIN_NAME]["price"] = new_price
+    save_data(market_data)
+
+    await interaction.followup.send(f"✅ Campton Coin price has been manually set to **{new_price:.2f} dollars**.", ephemeral=True)
+    print(f"Campton Coin price manually set to {new_price:.2f} by {interaction.user.display_name}.")
+
+@set_price_cmd.error
+async def set_price_error(interaction: discord.Interaction, error: app_commands.AppCommandError):
+    if isinstance(error, app_commands.CheckFailure):
+        await interaction.response.send_message("You must be the bot owner to use this command.", ephemeral=True)
+    else:
+        await interaction.response.send_message(f"An unexpected error occurred: {error}", ephemeral=True)
+
 # Run the bot
 bot.run(TOKEN)
-
-
-
-

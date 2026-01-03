@@ -1,1 +1,125 @@
-{}
+{
+    "coins": {
+        "Campton Coin": {
+            "price": 153.26
+        }
+    },
+    "users": {
+        "820290294183886908": {
+            "balance": 300.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "Krilltinian",
+                "pnc_full_name": "Jevonte Nelson",
+                "verified_at": "2026-01-02T20:52:37.253361+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "580446504435843095": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {},
+            "on_buy_cooldown": false
+        },
+        "357681843790675978": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "EXOT1C_Jayy",
+                "pnc_full_name": "William Love",
+                "verified_at": "2026-01-02T21:08:53.488319+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "244214611400851458": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "0nSkunk",
+                "pnc_full_name": "Ray Zheng",
+                "verified_at": "2026-01-02T21:24:28.080198+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "799435805168631848": {
+            "balance": 720.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "3x3x3x3R3TURNS",
+                "pnc_full_name": "Amari Kingston",
+                "verified_at": "2026-01-02T22:26:20.277236+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "842296718442627092": {
+            "balance": 0.12606000000005224,
+            "portfolio": {
+                "Campton Coin": 4.519
+            },
+            "verification": {},
+            "on_buy_cooldown": false
+        },
+        "1186326639622246540": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "john doe",
+                "pnc_full_name": "john doe",
+                "verified_at": "2026-01-02T23:09:37.719216+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "784522676994965515": {
+            "balance": 0.71,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "kinglooopoooo",
+                "pnc_full_name": "Eric Bordeaux",
+                "verified_at": "2026-01-02T23:13:32.996668+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "773577445021319208": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "Unfairlife9",
+                "pnc_full_name": "Fredo Walker",
+                "verified_at": "2026-01-03T06:16:47.572285+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "663405340167241729": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "Laponcibus",
+                "pnc_full_name": "Luigi Barbieri",
+                "verified_at": "2026-01-03T12:25:31.220266+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "1260447935741689930": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "amxurq",
+                "pnc_full_name": "Trevon Price",
+                "verified_at": "2026-01-03T22:26:46.318309+00:00"
+            },
+            "on_buy_cooldown": false
+        },
+        "397102304089604106": {
+            "balance": 0.0,
+            "portfolio": {},
+            "verification": {
+                "roblox_username": "TwistTheGreat",
+                "pnc_full_name": "Ivan Taylor",
+                "verified_at": "2026-01-03T23:18:29.431184+00:00"
+            },
+            "on_buy_cooldown": false
+        }
+    },
+    "tickets": {},
+    "next_conversion_timestamp": "2026-01-09T20:27:25.143398+00:00"
+}
